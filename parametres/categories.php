@@ -2,9 +2,6 @@
 session_start();
 require_once __DIR__ . "/../includes/config.php";
 require_once ROOT_PATH . "/includes/db.php";
-require_once ROOT_PATH . "/includes/header.php";
-require_once ROOT_PATH . "/includes/sidebar.php";
-
 
 // --- Suppression ---
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
@@ -32,6 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit'])) {
 
 // --- Liste ---
 $categories = $pdo->query("SELECT * FROM categories ORDER BY id_categorie DESC")->fetchAll();
+
+// Inclure header et sidebar seulement après traitements
+require_once ROOT_PATH . "/includes/header.php";
+require_once ROOT_PATH . "/includes/sidebar.php";
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +47,9 @@ $categories = $pdo->query("SELECT * FROM categories ORDER BY id_categorie DESC")
     <h2 class="mb-3">Gestion des catégories</h2>
 
     <!-- Bouton ajouter -->
-    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addModal">+ Ajouter une catégorie</button>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addModal">
+        + Ajouter une catégorie
+    </button>
 
     <table class="table table-bordered table-hover">
         <thead class="table-light">
@@ -92,7 +95,8 @@ $categories = $pdo->query("SELECT * FROM categories ORDER BY id_categorie DESC")
                           <input type="hidden" name="id" value="<?= $cat['id_categorie'] ?>">
                           <div class="mb-3">
                             <label class="form-label">Nom</label>
-                            <input type="text" name="nom" class="form-control" value="<?= htmlspecialchars($cat['nom_categorie']) ?>" required>
+                            <input type="text" name="nom" class="form-control" 
+                                   value="<?= htmlspecialchars($cat['nom_categorie']) ?>" required>
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Description</label>

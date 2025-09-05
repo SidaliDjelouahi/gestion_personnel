@@ -36,15 +36,37 @@
                                 <i class="fa fa-chart-line"></i> Échelons
                             </a>
                         </li>
+                        <!-- Nouvelle entrée Primes -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= ROOT_URL ?>/parametres/primes.php">
+                                <i class="fa fa-coins"></i> Primes
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
 
-            <!-- Employés -->
+            <!-- Menu Personnel avec sous-liens -->
             <li class="nav-item">
-                <a class="nav-link" href="<?= ROOT_URL ?>/personnel/liste.php">
-                    <i class="fa fa-users"></i> Employés
+                <a class="nav-link d-flex justify-content-between align-items-center"
+                   data-bs-toggle="collapse"
+                   href="#submenuPersonnel"
+                   role="button"
+                   aria-expanded="false"
+                   aria-controls="submenuPersonnel">
+                    <span><i class="fa fa-users"></i> Personnel</span>
+                    <i class="fa fa-chevron-down small"></i>
                 </a>
+                <div class="collapse ps-3" id="submenuPersonnel">
+                    <ul class="nav flex-column ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= ROOT_URL ?>/personnel/liste.php">
+                                <i class="fa fa-list"></i> Liste du personnel
+                            </a>
+                        </li>
+                        <!-- Tu pourras ajouter d’autres sous-pages ici, ex: ajouter, contrats, etc. -->
+                    </ul>
+                </div>
             </li>
 
             <!-- Absences -->
