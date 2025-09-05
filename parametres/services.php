@@ -1,6 +1,9 @@
 <?php
 session_start();
-require_once "../includes/db.php"; 
+require_once __DIR__ . "/../includes/config.php";
+require_once ROOT_PATH . "/includes/db.php";
+require_once ROOT_PATH . "/includes/header.php";
+require_once ROOT_PATH . "/includes/sidebar.php";
 
 // --- Suppression ---
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {

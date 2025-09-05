@@ -2,6 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+require_once __DIR__ . "/config.php";
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -24,7 +25,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- Barre de navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="../dashboard.php">Gestion Personnel</a>
+            <a class="navbar-brand" href="<?= ROOT_URL ?>/dashboard.php">Gestion Personnel</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
