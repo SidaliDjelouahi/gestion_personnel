@@ -1,0 +1,39 @@
+Il faut distinguer Avancement et Promotion :
+
+🔹 Avancement
+
+C’est un changement à l’intérieur du même grade/catégorie (par exemple passer d’un échelon 3 à un échelon 4).
+
+Il se fait généralement selon des règles fixes (ancienneté, durée, etc.).
+
+👉 Donc oui, carriere/avancement.php suit les règles dans regle_carriere (comme on l’a codé).
+
+🔹 Promotion
+
+C’est un changement de grade/catégorie supérieur (par exemple passer de Technicien → Ingénieur).
+
+Ici, les critères sont souvent plus complexes :
+
+Ancienneté et résultats/notation,
+
+Formation complémentaire,
+
+Concours ou décision hiérarchique.
+
+👉 Donc carriere/promotions.php peut s’inspirer du même modèle (basé sur des règles en base de données), mais :
+
+Les règles de promotion sont moins automatiques que l’avancement,
+
+On aura souvent besoin d’une validation manuelle du RH/direction même si la règle est remplie.
+
+⚙️ Concrètement :
+
+avancement.php → semi-automatique 100% basé sur règles (ancienneté + grade actuel).
+
+promotions.php → semi-automatique mais avec critères supplémentaires :
+
+On peut avoir une table regle_promotion (comme regle_carriere)
+
+Exemple : duree_annee, grade_source, grade_cible, condition_formation, condition_note…
+
+Et dans la page, on indique : “Employé X est éligible à une promotion, cliquez pour valider”.
