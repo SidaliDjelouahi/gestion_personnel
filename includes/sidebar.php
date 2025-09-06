@@ -105,9 +105,15 @@
                                 <i class="fa fa-list-alt"></i> Règles carrière
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= ROOT_URL ?>/carriere/historique.php">
+                                <i class="fa fa-history"></i> Historique
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
+
 
             <!-- Absences -->
             <li class="nav-item">

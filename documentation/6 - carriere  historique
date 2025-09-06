@@ -1,0 +1,47 @@
+La page carriere/historique.php a pour rôle de centraliser et afficher tout l’historique de carrière d’un employé.
+
+En pratique, elle sert à :
+
+Lister les mouvements de carrière d’un employé :
+
+Recrutement / première affectation
+
+Avancement d’échelon
+
+Promotion de grade
+
+Mutation (changement de service)
+
+Mise en disponibilité, détachement, etc.
+
+Retraite ou fin de service
+
+Afficher les dates importantes :
+
+Date de début et de fin de chaque étape
+
+Durée passée dans chaque poste / grade
+
+Montrer les informations de contexte :
+
+Service / affectation
+
+Grade associé
+
+Observations (notes de décision, remarques administratives)
+
+Type de mouvement (Avancement, Promotion, Mutation, …)
+
+Servir de référence administrative :
+
+Les RH peuvent vérifier le parcours complet d’un agent.
+
+Sert comme fiche carrière officielle (utile en cas de calcul d’ancienneté, avancement automatique, retraite).
+
+Permettre le suivi et le contrôle :
+
+Vérifier que la carrière est bien cohérente (pas de chevauchement entre deux affectations).
+
+Détecter des oublis (exemple : mutation saisie sans clôturer l’ancien poste).
+
+💡 En résumé :
