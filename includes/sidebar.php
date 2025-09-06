@@ -96,6 +96,11 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="<?= ROOT_URL ?>/carriere/mutations.php">
+                                <i class="fa fa-exchange-alt"></i> Mutations
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="<?= ROOT_URL ?>/carriere/regles.php">
                                 <i class="fa fa-list-alt"></i> Règles carrière
                             </a>

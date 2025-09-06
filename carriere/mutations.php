@@ -8,10 +8,15 @@ require_once ROOT_PATH . "/includes/db.php";
 require_once ROOT_PATH . "/includes/header.php";
 require_once ROOT_PATH . "/includes/sidebar.php";
 
-// --- Liste des grades (au cas où mutation avec changement de grade en même temps) ---
+// --- Liste des grades (optionnel si mutation avec changement de grade) ---
 $grades = $pdo->query("SELECT id_grade, libelle_grade 
                        FROM grades 
                        ORDER BY libelle_grade")->fetchAll(PDO::FETCH_ASSOC);
+
+// --- Liste des services (affectation) ---
+$services = $pdo->query("SELECT id_service, nom_service 
+                         FROM services 
+                         ORDER BY nom_service")->fetchAll(PDO::FETCH_ASSOC);
 
 // --- Traitement du formulaire ---
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -19,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $id_grade     = $_POST['id_grade'] ?? null;
     $date_debut   = $_POST['date_debut'];
     $observation  = $_POST['observation'] ?? '';
-    $affectation  = $_POST['affectation'] ?? '';
+    $id_service   = $_POST['id_service'] ?? null;
 
     // Clôturer la carrière en cours (s’il existe)
     $pdo->prepare("UPDATE carriere 
@@ -27,11 +32,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                    WHERE id_personnel = ? AND date_fin IS NULL")
         ->execute([$date_debut, $id_personnel]);
 
+    // Récupérer le nom du service pour journalisation
+    $service_nom = null;
+    if ($id_service) {
+        $stmtService = $pdo->prepare("SELECT nom_service FROM services WHERE id_service = ?");
+        $stmtService->execute([$id_service]);
+        $service_nom = $stmtService->fetchColumn();
+    }
+
     // Ajouter un nouvel enregistrement carrière
     $stmt = $pdo->prepare("INSERT INTO carriere 
         (id_personnel, id_grade, date_debut, type_mouvement, observation) 
         VALUES (?, ?, ?, 'Mutation', ?)");
-    $stmt->execute([$id_personnel, $id_grade, $date_debut, "Affectation : " . $affectation . " | " . $observation]);
+    $stmt->execute([
+        $id_personnel,
+        $id_grade,
+        $date_debut,
+        "Affectation : " . ($service_nom ?? 'Non spécifiée') . " | " . $observation
+    ]);
 
     $_SESSION['message'] = ["type" => "success", "text" => "Mutation enregistrée avec succès"];
     header("Location: mutations.php");
@@ -73,10 +91,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </select>
         </div>
 
-        <!-- Nouvelle affectation -->
+        <!-- Nouvelle affectation (sélecteur services) -->
         <div class="mb-3">
-            <label class="form-label">Nouvelle Affectation</label>
-            <input type="text" name="affectation" class="form-control" placeholder="Ex: Direction RH, Service Finances" required>
+            <label class="form-label">Nouvelle Affectation (Service)</label>
+            <select name="id_service" class="form-select" required>
+                <option value="">-- Sélectionner un service --</option>
+                <?php foreach ($services as $srv): ?>
+                    <option value="<?= $srv['id_service'] ?>">
+                        <?= htmlspecialchars($srv['nom_service']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
 
         <!-- Date d'effet -->
