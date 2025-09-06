@@ -1,10 +1,10 @@
 <?php
 // index.php (dashboard principal)
 session_start();
-require_once __DIR__ . "/includes/config.php";
-require_once ROOT_PATH . "/includes/db.php";
-require_once ROOT_PATH . "/includes/header.php";
-require_once ROOT_PATH . "/includes/sidebar.php";
+require_once "includes/db.php";    // connexion DB
+require_once "includes/header.php";
+require_once "includes/sidebar.php";
+
 
 // --- Statistiques globales ---
 $total_personnel = $pdo->query("SELECT COUNT(*) FROM personnel")->fetchColumn();
@@ -12,7 +12,7 @@ $total_services  = $pdo->query("SELECT COUNT(*) FROM services")->fetchColumn();
 $total_absences  = $pdo->query("SELECT COUNT(*) FROM absences")->fetchColumn();
 $total_conges    = $pdo->query("SELECT COUNT(*) FROM conges")->fetchColumn();
 
-// --- Masse salariale ---
+// --- Masse salariale (exemple simple : somme salaires bruts) ---
 $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn();
 ?>
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn(
   <meta charset="UTF-8">
   <title>Dashboard - Gestion du Personnel</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="<?= ROOT_URL ?>/assets/style.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
 </head>
 <body>
 <div class="container-fluid mt-4">
@@ -34,7 +34,7 @@ $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn(
         <div class="card-body">
           <h5 class="card-title">Effectif</h5>
           <p class="display-6"><?= $total_personnel ?></p>
-          <a href="<?= ROOT_URL ?>/personnel/liste.php" class="btn btn-light btn-sm">Voir détails</a>
+          <a href="personnel/liste.php" class="btn btn-light btn-sm">Voir détails</a>
         </div>
       </div>
     </div>
@@ -45,7 +45,7 @@ $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn(
         <div class="card-body">
           <h5 class="card-title">Services</h5>
           <p class="display-6"><?= $total_services ?></p>
-          <a href="<?= ROOT_URL ?>/parametres/services.php" class="btn btn-light btn-sm">Gérer</a>
+          <a href="parametres/services.php" class="btn btn-light btn-sm">Gérer</a>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@ $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn(
         <div class="card-body">
           <h5 class="card-title">Absences</h5>
           <p class="display-6"><?= $total_absences ?></p>
-          <a href="<?= ROOT_URL ?>/absences/index.php" class="btn btn-light btn-sm">Voir</a>
+          <a href="absences/index.php" class="btn btn-light btn-sm">Voir</a>
         </div>
       </div>
     </div>
@@ -67,7 +67,7 @@ $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn(
         <div class="card-body">
           <h5 class="card-title">Congés</h5>
           <p class="display-6"><?= $total_conges ?></p>
-          <a href="<?= ROOT_URL ?>/conges/index.php" class="btn btn-light btn-sm">Voir</a>
+          <a href="conges/index.php" class="btn btn-light btn-sm">Voir</a>
         </div>
       </div>
     </div>
@@ -80,7 +80,7 @@ $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn(
         <div class="card-body">
           <h5 class="card-title">Masse salariale</h5>
           <p class="fs-3 text-primary"><?= number_format($total_salaire, 2, ',', ' ') ?> DA</p>
-          <a href="<?= ROOT_URL ?>/paie/masse.php" class="btn btn-outline-primary btn-sm">Détails</a>
+          <a href="paie/masse.php" class="btn btn-outline-primary btn-sm">Détails</a>
         </div>
       </div>
     </div>
@@ -102,7 +102,7 @@ $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn(
 
 </div>
 
-<?php require_once ROOT_PATH . "/includes/footer.php"; ?>
+<?php require_once "includes/footer.php"; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

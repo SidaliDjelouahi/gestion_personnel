@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "../includes/db.php";
-require_once "../includes/header.php";
+require_once __DIR__ . "/../includes/config.php";
+require_once ROOT_PATH . "/includes/db.php";
 
 // --- Suppression ---
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
@@ -29,7 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit'])) {
 
 // --- Liste ---
 $grades = $pdo->query("SELECT * FROM grades ORDER BY id_grade DESC")->fetchAll();
+
+// ⚡ Les includes de design seulement après les traitements
+require_once ROOT_PATH . "/includes/header.php";
+require_once ROOT_PATH . "/includes/sidebar.php";
 ?>
+
 
 <!DOCTYPE html>
 <html lang="fr">

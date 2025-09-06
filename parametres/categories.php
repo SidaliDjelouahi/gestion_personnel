@@ -5,32 +5,32 @@ require_once ROOT_PATH . "/includes/db.php";
 
 // --- Suppression ---
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
-    $stmt = $pdo->prepare("DELETE FROM services WHERE id_service = ?");
+    $stmt = $pdo->prepare("DELETE FROM categories WHERE id_categorie = ?");
     $stmt->execute([$_GET['delete']]);
-    header("Location: services.php");
+    header("Location: categories.php");
     exit();
 }
 
-// --- Ajout d’un service ---
+// --- Ajout ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
-    $stmt = $pdo->prepare("INSERT INTO services (nom_service, description) VALUES (?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO categories (nom_categorie, description) VALUES (?, ?)");
     $stmt->execute([$_POST['nom'], $_POST['description']]);
-    header("Location: services.php");
+    header("Location: categories.php");
     exit();
 }
 
-// --- Modification d’un service ---
+// --- Modification ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit'])) {
-    $stmt = $pdo->prepare("UPDATE services SET nom_service=?, description=? WHERE id_service=?");
+    $stmt = $pdo->prepare("UPDATE categories SET nom_categorie=?, description=? WHERE id_categorie=?");
     $stmt->execute([$_POST['nom'], $_POST['description'], $_POST['id']]);
-    header("Location: services.php");
+    header("Location: categories.php");
     exit();
 }
 
 // --- Liste ---
-$services = $pdo->query("SELECT * FROM services ORDER BY id_service DESC")->fetchAll();
+$categories = $pdo->query("SELECT * FROM categories ORDER BY id_categorie DESC")->fetchAll();
 
-// --- Inclusion des layouts après traitements ---
+// Inclure header et sidebar seulement après traitements
 require_once ROOT_PATH . "/includes/header.php";
 require_once ROOT_PATH . "/includes/sidebar.php";
 ?>
@@ -39,15 +39,17 @@ require_once ROOT_PATH . "/includes/sidebar.php";
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Services</title>
+    <title>Catégories</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div class="container mt-4">
-    <h2 class="mb-3">Gestion des services</h2>
+    <h2 class="mb-3">Gestion des catégories</h2>
 
     <!-- Bouton ajouter -->
-    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addModal">+ Ajouter un service</button>
+    <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addModal">
+        + Ajouter une catégorie
+    </button>
 
     <table class="table table-bordered table-hover">
         <thead class="table-light">
@@ -59,45 +61,46 @@ require_once ROOT_PATH . "/includes/sidebar.php";
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($services as $srv): ?>
+            <?php foreach ($categories as $cat): ?>
                 <tr>
-                    <td><?= $srv['id_service'] ?></td>
-                    <td><?= htmlspecialchars($srv['nom_service']) ?></td>
-                    <td><?= htmlspecialchars($srv['description']) ?></td>
+                    <td><?= $cat['id_categorie'] ?></td>
+                    <td><?= htmlspecialchars($cat['nom_categorie']) ?></td>
+                    <td><?= htmlspecialchars($cat['description']) ?></td>
                     <td>
                         <!-- bouton modifier -->
-                        <button class="btn btn-sm btn-warning" 
-                                data-bs-toggle="modal" 
-                                data-bs-target="#editModal<?= $srv['id_service'] ?>">
+                        <button class="btn btn-sm btn-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editModal<?= $cat['id_categorie'] ?>">
                             Modifier
                         </button>
                         <!-- bouton supprimer -->
-                        <a href="?delete=<?= $srv['id_service'] ?>" 
+                        <a href="?delete=<?= $cat['id_categorie'] ?>"
                            class="btn btn-sm btn-danger"
-                           onclick="return confirm('Supprimer ce service ?');">
+                           onclick="return confirm('Supprimer cette catégorie ?');">
                            Supprimer
                         </a>
                     </td>
                 </tr>
 
                 <!-- Modal édition -->
-                <div class="modal fade" id="editModal<?= $srv['id_service'] ?>" tabindex="-1">
+                <div class="modal fade" id="editModal<?= $cat['id_categorie'] ?>" tabindex="-1">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <form method="post">
                         <div class="modal-header">
-                          <h5 class="modal-title">Modifier service</h5>
+                          <h5 class="modal-title">Modifier catégorie</h5>
                           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                          <input type="hidden" name="id" value="<?= $srv['id_service'] ?>">
+                          <input type="hidden" name="id" value="<?= $cat['id_categorie'] ?>">
                           <div class="mb-3">
                             <label class="form-label">Nom</label>
-                            <input type="text" name="nom" class="form-control" value="<?= htmlspecialchars($srv['nom_service']) ?>" required>
+                            <input type="text" name="nom" class="form-control" 
+                                   value="<?= htmlspecialchars($cat['nom_categorie']) ?>" required>
                           </div>
                           <div class="mb-3">
                             <label class="form-label">Description</label>
-                            <textarea name="description" class="form-control"><?= htmlspecialchars($srv['description']) ?></textarea>
+                            <textarea name="description" class="form-control"><?= htmlspecialchars($cat['description']) ?></textarea>
                           </div>
                         </div>
                         <div class="modal-footer">
@@ -119,7 +122,7 @@ require_once ROOT_PATH . "/includes/sidebar.php";
     <div class="modal-content">
       <form method="post">
         <div class="modal-header">
-          <h5 class="modal-title">Ajouter un service</h5>
+          <h5 class="modal-title">Ajouter une catégorie</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
