@@ -1,0 +1,7 @@
+On lit la table carriere → on prend la dernière carrière de chaque employé.
+
+On lit la table regle_carriere → on vérifie si la règle s’applique (condition_grade).
+
+Si la durée (duree_annee) est atteinte, on marque l’agent comme éligible.
+
+Le RH peut cliquer sur un bouton “Valider” pour ajouter une nouvelle ligne dans carriere (nouvel avancement).

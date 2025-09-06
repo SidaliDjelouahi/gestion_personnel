@@ -3,7 +3,7 @@
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
 
-            <!-- Menu Paramètres avec sous-liens -->
+            <!-- Menu Paramètres -->
             <li class="nav-item">
                 <a class="nav-link d-flex justify-content-between align-items-center" 
                    data-bs-toggle="collapse" 
@@ -14,7 +14,7 @@
                     <span><i class="fa fa-cog"></i> Paramètres</span>
                     <i class="fa fa-chevron-down small"></i>
                 </a>
-                <div class="collapse ps-3" id="submenuParametres">
+                <div class="collapse" id="submenuParametres">
                     <ul class="nav flex-column ms-3">
                         <li class="nav-item">
                             <a class="nav-link" href="<?= ROOT_URL ?>/parametres/services.php">
@@ -36,7 +36,6 @@
                                 <i class="fa fa-chart-line"></i> Échelons
                             </a>
                         </li>
-                        <!-- Nouvelle entrée Primes -->
                         <li class="nav-item">
                             <a class="nav-link" href="<?= ROOT_URL ?>/parametres/primes.php">
                                 <i class="fa fa-coins"></i> Primes
@@ -46,7 +45,7 @@
                 </div>
             </li>
 
-            <!-- Menu Personnel avec sous-liens -->
+            <!-- Menu Personnel -->
             <li class="nav-item">
                 <a class="nav-link d-flex justify-content-between align-items-center"
                    data-bs-toggle="collapse"
@@ -57,14 +56,50 @@
                     <span><i class="fa fa-users"></i> Personnel</span>
                     <i class="fa fa-chevron-down small"></i>
                 </a>
-                <div class="collapse ps-3" id="submenuPersonnel">
+                <div class="collapse" id="submenuPersonnel">
                     <ul class="nav flex-column ms-3">
                         <li class="nav-item">
                             <a class="nav-link" href="<?= ROOT_URL ?>/personnel/liste.php">
                                 <i class="fa fa-list"></i> Liste du personnel
                             </a>
                         </li>
-                        <!-- Tu pourras ajouter d’autres sous-pages ici, ex: ajouter, contrats, etc. -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= ROOT_URL ?>/personnel/detail.php">
+                                <i class="fa fa-id-card"></i> Détails
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <!-- Menu Carrière -->
+            <li class="nav-item">
+                <a class="nav-link d-flex justify-content-between align-items-center"
+                   data-bs-toggle="collapse"
+                   href="#submenuCarriere"
+                   role="button"
+                   aria-expanded="false"
+                   aria-controls="submenuCarriere">
+                    <span><i class="fa fa-chart-line"></i> Carrière</span>
+                    <i class="fa fa-chevron-down small"></i>
+                </a>
+                <div class="collapse" id="submenuCarriere">
+                    <ul class="nav flex-column ms-3">
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= ROOT_URL ?>/carriere/avancement.php">
+                                <i class="fa fa-arrow-up"></i> Avancement
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= ROOT_URL ?>/carriere/promotions.php">
+                                <i class="fa fa-medal"></i> Promotions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= ROOT_URL ?>/carriere/regles.php">
+                                <i class="fa fa-list-alt"></i> Règles carrière
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -75,6 +110,7 @@
                     <i class="fa fa-calendar-xmark"></i> Absences
                 </a>
             </li>
+
         </ul>
     </div>
 </nav>
