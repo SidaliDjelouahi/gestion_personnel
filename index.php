@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <form method="post">
                             <div class="mb-3">
                                 <label class="form-label">Nom d’utilisateur</label>
-                                <input type="text" name="username" class="form-control" required>
+                                <input type="text" name="username" class="form-control" required autofocus>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Mot de passe</label>
