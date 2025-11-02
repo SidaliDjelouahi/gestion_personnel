@@ -7,24 +7,15 @@ require_once ROOT_PATH . "/includes/header.php";
 require_once ROOT_PATH . "/includes/sidebar.php";
 
 // --- Statistiques globales ---
-$total_personnel = $pdo->query("SELECT COUNT(*) FROM personnel")->fetchColumn();
-$total_services  = $pdo->query("SELECT COUNT(*) FROM services")->fetchColumn();
-$total_absences  = $pdo->query("SELECT COUNT(*) FROM absences")->fetchColumn();
-$total_conges    = $pdo->query("SELECT COUNT(*) FROM conges")->fetchColumn();
+// use centralized safe_count helper (returns 0 if table missing)
+$total_personnel = function_exists('safe_count') ? safe_count($pdo, 'personnel') : @($pdo->query("SELECT COUNT(*) FROM personnel")->fetchColumn() ?: 0);
+$total_services  = function_exists('safe_count') ? safe_count($pdo, 'services') : @($pdo->query("SELECT COUNT(*) FROM services")->fetchColumn() ?: 0);
+$total_absences  = function_exists('safe_count') ? safe_count($pdo, 'absences') : @($pdo->query("SELECT COUNT(*) FROM absences")->fetchColumn() ?: 0);
+$total_conges    = function_exists('safe_count') ? safe_count($pdo, 'conges') : @($pdo->query("SELECT COUNT(*) FROM conges")->fetchColumn() ?: 0);
 
 // --- Masse salariale ---
 $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn();
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Dashboard - Gestion du Personnel</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="<?= ROOT_URL ?>/assets/style.css" rel="stylesheet">
-</head>
-<body>
-<div class="container-fluid mt-4">
   <h1 class="mb-4">Tableau de bord</h1>
 
   <div class="row">
@@ -100,9 +91,4 @@ $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn(
     </div>
   </div>
 
-</div>
-
 <?php require_once ROOT_PATH . "/includes/footer.php"; ?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>

@@ -14,6 +14,8 @@ $total_conges    = $pdo->query("SELECT COUNT(*) FROM conges")->fetchColumn();
 
 // --- Masse salariale (exemple simple : somme salaires bruts) ---
 $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -21,7 +23,7 @@ $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn(
   <meta charset="UTF-8">
   <title>Dashboard - Gestion du Personnel</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/style.css" rel="stylesheet">
+  
 </head>
 <body>
 <div class="container-fluid mt-4">
@@ -102,7 +104,6 @@ $total_salaire = $pdo->query("SELECT SUM(salaire_base) FROM paie")->fetchColumn(
 
 </div>
 
-<?php require_once "includes/footer.php"; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
